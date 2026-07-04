@@ -81,13 +81,17 @@ class AuthController extends BaseController
             'userRole'   => $user['role'],
         ]);
 
+        // Determine redirect URL based on role
+        $redirectUrl = ($user['role'] === 'admin')
+            ? base_url('admin/dashboard')
+            : base_url('dashboard');
+
         return $this->response->setJSON([
-            'status'   => 200,
-            'error'    => null,
-            'messages' => [
-                'success' => 'Login berhasil!'
-            ],
-            'data'     => $user
+            'status'      => 200,
+            'error'       => null,
+            'messages'    => ['success' => 'Login berhasil!'],
+            'redirect'    => $redirectUrl,
+            'data'        => $user
         ])->setStatusCode(200);
     }
 

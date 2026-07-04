@@ -81,8 +81,10 @@
                     successContainer.innerText = result.messages.success;
                     successContainer.style.display = 'block';
                     
+                    // Gunakan redirect URL dari response API (admin atau user)
+                    const redirectUrl = result.redirect || '<?= base_url("dashboard") ?>';
                     setTimeout(() => {
-                        window.location.href = '<?= base_url("dashboard") ?>';
+                        window.location.href = redirectUrl;
                     }, 1000);
                 } else {
                     errorContainer.style.display = 'block';
