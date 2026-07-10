@@ -9,12 +9,11 @@ if (! function_exists('generateToken')) {
      */
     function generateToken(array $payload): string
     {
-        $key       = getenv('JWT_SECRET_KEY') ?: 'tokosaku-secret-key-ganti-ini';
+        $key       = getenv('JWT_SECRET_KEY') ?: 'tokosaku-secret-key-yang-sangat-panjang-dan-aman';
         $issuedAt  = time();
-        $expire    = $issuedAt + (60 * 60 * 24); // berlaku 24 jam
 
         $payload['iat'] = $issuedAt;
-        $payload['exp'] = $expire;
+        // Tanpa batas waktu (claim 'exp' tidak diset)
 
         return JWT::encode($payload, $key, 'HS256');
     }
@@ -28,7 +27,7 @@ if (! function_exists('decodeToken')) {
      */
     function decodeToken(string $token)
     {
-        $key = getenv('JWT_SECRET_KEY') ?: 'tokosaku-secret-key-ganti-ini';
+        $key = getenv('JWT_SECRET_KEY') ?: 'tokosaku-secret-key-yang-sangat-panjang-dan-aman';
 
         try {
             return JWT::decode($token, new Key($key, 'HS256'));
