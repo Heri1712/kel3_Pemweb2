@@ -9,6 +9,15 @@ $routes->get('/', 'Home::index');
 
 // API Routes
 $routes->group('api', function ($routes) {
+    // Handle CORS preflight (OPTIONS) for all API routes
+    $routes->options('(:any)', function () {
+        return \Config\Services::response()
+            ->setStatusCode(200)
+            ->setHeader('Access-Control-Allow-Origin', '*')
+            ->setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+            ->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+    });
+
     // Auth routes
     $routes->post('auth/register', '\App\Controllers\Api\AuthController::register');
     $routes->post('auth/login', '\App\Controllers\Api\AuthController::login');
