@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { loginUser } from '../api/auth';
+import { useNavigate } from 'react-router-dom';
+import { loginAdmin } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
-import styles from './Login.module.css';
+import styles from './AdminLogin.module.css';
 
-export default function LoginPage() {
+export default function AdminLoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -23,14 +23,13 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
     try {
-      const data = await loginUser(form);
+      const data = await loginAdmin(form);
+
+      // Save session inside AuthContext
       login(data.token, data.data);
-      // Redirect based on role
-      if (data.data.role === 'admin') {
-        navigate('/admin/dashboard');
-      } else {
-        navigate('/');
-      }
+
+      // Redirect to the Admin Dashboard
+      navigate('/admin/dashboard');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -42,20 +41,15 @@ export default function LoginPage() {
     <div className={styles.page}>
       {/* Logo / Brand */}
       <div className={styles.brand}>
-        {/* <span className={styles.brandIcon}>🛒</span> */}
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="9" cy="21" r="1" />
-          <circle cx="20" cy="21" r="1" />
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-        </svg>
-        <span className={styles.brandName}>Mini Retail</span>
+        <span className={styles.brandIcon}>🛡️</span>
+        <span className={styles.brandName}>Mini Retail Admin</span>
       </div>
 
       <div className={styles.card}>
         {/* Card header */}
         <div className={styles.cardHeader}>
-          <h1 className={styles.title}>Login</h1>
-          <p className={styles.subtitle}>Selamat Datang Kembali! 👋</p>
+          <h1 className={styles.title}>Login Admin</h1>
+          <p className={styles.subtitle}>Masuk untuk mengelola sistem</p>
         </div>
 
         {error && (
@@ -68,13 +62,13 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
           {/* Email field */}
           <div className={styles.fieldGroup}>
-            <label htmlFor="login-email" className={styles.label}>Email</label>
+            <label htmlFor="admin-email" className={styles.label}>Email Admin</label>
             <div className={styles.inputWrapper}>
               <input
-                id="login-email"
+                id="admin-email"
                 name="email"
                 type="email"
-                placeholder="Masukan Email"
+                placeholder="admin@example.com"
                 value={form.email}
                 onChange={handleChange}
                 className={styles.input}
@@ -86,13 +80,13 @@ export default function LoginPage() {
 
           {/* Password field */}
           <div className={styles.fieldGroup}>
-            <label htmlFor="login-password" className={styles.label}>Password</label>
+            <label htmlFor="admin-password" className={styles.label}>Password</label>
             <div className={styles.inputWrapper}>
               <input
-                id="login-password"
+                id="admin-password"
                 name="password"
                 type={showPass ? 'text' : 'password'}
-                placeholder="Masukan Password"
+                placeholder="••••••••"
                 value={form.password}
                 onChange={handleChange}
                 className={styles.input}
@@ -121,7 +115,7 @@ export default function LoginPage() {
           </div>
 
           <button
-            id="login-submit-btn"
+            id="admin-login-submit-btn"
             type="submit"
             className={styles.submitBtn}
             disabled={loading}
@@ -133,13 +127,6 @@ export default function LoginPage() {
             )}
           </button>
         </form>
-
-        <p className={styles.switchText}>
-          Belum punya akun?{' '}
-          <Link to="/register" className={styles.switchLink}>
-            Daftar
-          </Link>
-        </p>
       </div>
     </div>
   );

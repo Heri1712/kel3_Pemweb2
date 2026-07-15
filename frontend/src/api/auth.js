@@ -16,6 +16,21 @@ export async function loginUser({ email, password }) {
 }
 
 /**
+ * Login admin
+ * POST /api/auth/admin-login
+ */
+export async function loginAdmin({ email, password }) {
+  const res = await fetch(`${BASE_URL}/auth/admin-login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.messages?.error || data.message || 'Login admin gagal');
+  return data;
+}
+
+/**
  * Register user
  * POST /api/auth/register
  */
