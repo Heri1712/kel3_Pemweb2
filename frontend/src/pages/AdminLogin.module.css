@@ -1,20 +1,20 @@
 /* ====================================================
-   Register Page Styles
+   Admin Login Page Styles
    ==================================================== */
 
 .page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  background: #f0f2f8;
+  background: #ffffff;
   position: relative;
-  padding: 24px 16px 24px 64px;
+  padding: 24px 16px;
   font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-/* ── Brand ── */
+/* ── Brand / Logo ── */
 .brand {
   position: absolute;
   top: 24px;
@@ -31,42 +31,43 @@
 .brandName {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #2563eb;
+  color: #322fd1;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
 }
 
 /* ── Card ── */
 .card {
-  background: #eef1f6;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
-  padding: 36px 32px;
+  padding: 40px 36px;
   width: 100%;
-  max-width: 420px;
+  max-width: 300px;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
 }
 
 /* ── Card Header ── */
 .cardHeader {
   text-align: left;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  color: #1e293b;
-  margin: 0 0 4px;
+  color: #0f172a;
+  margin: 0 0 6px;
 }
 
 .subtitle {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #94a3b8;
   margin: 0;
   font-weight: 500;
 }
 
-/* ── Alert Boxes ── */
+/* ── Error Box ── */
 .errorBox {
   display: flex;
   align-items: center;
@@ -80,24 +81,16 @@
   margin-bottom: 18px;
 }
 
-.successBox {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #dcfce7;
-  border: 1px solid #86efac;
-  color: #16a34a;
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 0.85rem;
-  margin-bottom: 18px;
+.errorIcon {
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
 /* ── Form ── */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
 }
 
 .fieldGroup {
@@ -107,9 +100,9 @@
 }
 
 .label {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #0f172a;
 }
 
 .inputWrapper {
@@ -120,15 +113,15 @@
 
 .input {
   width: 100%;
-  padding: 13px 40px 13px 16px;
-  border: none;
-  border-radius: 10px;
+  padding: 11px 40px 11px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
   font-size: 0.9rem;
   color: #1e293b;
   background: #ffffff;
   outline: none;
   box-sizing: border-box;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  transition: border-color 0.2s;
 }
 
 .input::placeholder {
@@ -136,17 +129,8 @@
 }
 
 .input:focus {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
-}
-
-.inputError {
-  box-shadow: 0 0 0 2px #f87171 !important;
-}
-
-.matchError {
-  font-size: 0.78rem;
-  color: #ef4444;
-  font-weight: 500;
+  border-color: #322fd1;
+  box-shadow: 0 0 0 3px rgba(50, 47, 209, 0.12);
 }
 
 .eyeBtn {
@@ -162,66 +146,48 @@
 }
 
 .eyeBtn:hover {
-  color: #3b82f6;
+  color: #322fd1;
 }
 
 /* ── Submit Button ── */
 .submitBtn {
   width: 100%;
-  padding: 14px;
-  background: #2f4bd6;
-  color: #fff;
+  padding: 13px;
+  background: #322fd1;
+  color: #ffffff;
   font-size: 0.95rem;
-  font-weight: 800;
+  font-weight: 700;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  letter-spacing: 1px;
-  margin-top: 4px;
+  gap: 8px;
+  margin-top: 14px;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background: #263cb0;
+  background: #2724b0;
 }
 
 .submitBtn:disabled {
-  opacity: 0.7;
+  opacity: 0.65;
   cursor: not-allowed;
 }
 
 /* ── Spinner ── */
 .spinner {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #fff;
+  border-top-color: #ffffff;
   border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
-}
-
-/* ── Switch Text ── */
-.switchText {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 0.85rem;
-  color: #64748b;
-}
-
-.switchLink {
-  color: #2563eb;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.switchLink:hover {
-  text-decoration: underline;
 }

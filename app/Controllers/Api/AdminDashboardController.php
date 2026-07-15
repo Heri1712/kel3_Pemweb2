@@ -29,14 +29,27 @@ class AdminDashboardController extends BaseController
             ->where('status', 'selesai')
             ->first();
 
+        $totalStok = $produkModel
+            ->selectSum('stok')
+            ->first();
+
+        $transaksiTerbaru = $transaksiModel
+            ->select('transaksi.*, users.nama as nama_pelanggan')
+            ->join('users', 'users.id = transaksi.id_user')
+            ->orderBy('transaksi.created_at', 'DESC')
+            ->limit(5)
+            ->findAll();
+
         return $this->respond([
             'status' => true,
             'data'   => [
-                'total_pengguna'   => $userModel->where('role', 'user')->countAllResults(),
-                'total_produk'     => $produkModel->countAllResults(),
-                'total_kategori'   => $kategoriModel->countAllResults(),
-                'total_transaksi'  => $transaksiModel->countAllResults(),
-                'total_pendapatan' => (float) ($totalPendapatan['total_harga'] ?? 0),
+                'total_pengguna'    => $userModel->where('role', 'user')->countAllResults(),
+                'total_produk'      => $produkModel->countAllResults(),
+                'total_kategori'    => $kategoriModel->countAllResults(),
+                'total_transaksi'   => $transaksiModel->countAllResults(),
+                'total_stok'        => (int) ($totalStok['stok'] ?? 0),
+                'total_pendapatan'  => (float) ($totalPendapatan['total_harga'] ?? 0),
+                'transaksi_terbaru' => $transaksiTerbaru,
             ],
         ]);
     }
