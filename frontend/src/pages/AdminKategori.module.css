@@ -1,0 +1,432 @@
+/* ====================================================
+   Admin Kategori Page Styles (Matching Mockup Design)
+   ==================================================== */
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #1e293b;
+}
+
+/* ── Sidebar Styles ── */
+.sidebar {
+  width: 270px;
+  background-color: #132646; /* Navy tua */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.brandIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.brandInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandName {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.brandSubtitle {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.menuItem:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.menuItemActive {
+  background-color: #ffffff !important;
+  color: #132646 !important;
+}
+
+.menuIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoutItem {
+  margin-top: auto;
+}
+
+/* ── Main Content Area ── */
+.mainContent {
+  flex-grow: 1;
+  padding: 40px 48px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* ── Top Header ── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.headerTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #12384a;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+  position: relative;
+}
+
+.userIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #132646;
+}
+
+.chevronIcon {
+  font-size: 10px;
+  color: #64748b;
+  margin-left: 4px;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+  transition: all 0.2s ease;
+}
+
+.addButton:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* ── Registered Categories Section ── */
+.tableSection {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  margin-bottom: 32px;
+}
+
+.tableTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+}
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.tableHeader {
+  background-color: #e4e4e7;
+  color: #1e293b;
+  font-weight: 700;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tableHeader th {
+  padding: 14px 20px;
+  font-weight: 700;
+}
+
+.tableRow {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableRow td {
+  padding: 16px 20px;
+  color: #1e293b;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+/* Specific column sizes */
+.noCell {
+  width: 80px;
+}
+
+.actionCell {
+  width: 150px;
+  text-align: right;
+}
+
+.tableHeader th.actionCell {
+  text-align: right;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.iconBtn:hover {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+.editIcon:hover {
+  color: #2563eb;
+}
+
+.deleteIcon:hover {
+  color: #ef4444;
+}
+
+/* ── Add/Edit Category Form Section ── */
+.formSection {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.formTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  font-weight: 500;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input::placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Alert / Message */
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.alertSuccess {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.alertError {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+/* Form Action Buttons */
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.saveBtn {
+  background-color: #1222e3; /* matching blue button */
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 12px 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveBtn:hover {
+  background-color: #0c18bd;
+}
+
+.saveBtn:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  background-color: #d8d8d8; /* gray button matching Batal */
+  color: #1e293b;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 12px 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+  background-color: #c0c0c0;
+}
+
+/* Loading/Spinner keyframes */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #cbd5e1;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 16px;
+}
