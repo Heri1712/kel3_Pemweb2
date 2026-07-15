@@ -114,7 +114,7 @@ export default function AdminDashboardPage() {
             <span>Dashboard</span>
           </button>
 
-          <button className={styles.menuItem} onClick={() => alert('Fitur Kelola Produk akan datang!')}>
+          <button className={styles.menuItem} onClick={() => navigate('/admin/produk')}>
             <span className={styles.menuIcon}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
@@ -125,9 +125,9 @@ export default function AdminDashboardPage() {
             <span>Produk</span>
           </button>
 
-          <button className={styles.menuItem} onClick={() => alert('Fitur Kelola Kategori akan datang!')}>
+          <button className={styles.menuItem} onClick={() => navigate('/admin/kategori')}>
             <span className={styles.menuIcon}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="3" width="7" height="7" />
                 <rect x="14" y="3" width="7" height="7" />
                 <rect x="14" y="14" width="7" height="7" />
@@ -137,7 +137,7 @@ export default function AdminDashboardPage() {
             <span>Kategori</span>
           </button>
 
-          <button className={styles.menuItem} onClick={() => alert('Fitur Stok akan datang!')}>
+          <button className={styles.menuItem} onClick={() => navigate('/admin/stok')}>
             <span className={styles.menuIcon}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12.89 1.45l8 4A2 2 0 0 1 22 7.24v9.53a2 2 0 0 1-1.11 1.79l-8 4a2 2 0 0 1-1.79 0l-8-4a2 2 0 0 1-1.1-1.8V7.24a2 2 0 0 1 1.11-1.79l8-4a2 2 0 0 1 1.78 0z" />
@@ -148,7 +148,7 @@ export default function AdminDashboardPage() {
             <span>Stok</span>
           </button>
 
-          <button className={styles.menuItem} onClick={() => alert('Fitur Kelola Transaksi akan datang!')}>
+          <button className={styles.menuItem} onClick={() => navigate('/admin/transaksi')}>
             <span className={styles.menuIcon}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="8" y1="6" x2="21" y2="6" />
