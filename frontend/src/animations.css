@@ -1,0 +1,134 @@
+/* =====================================================
+   GLOBAL SCROLL REVEAL & ANIMATION UTILITIES
+   Import this in main.jsx for site-wide animations
+   ===================================================== */
+
+/* ── Base reveal state: element hidden before revealed ── */
+.reveal-fade-up,
+.reveal-fade-in,
+.reveal-slide-left,
+.reveal-slide-right,
+.reveal-scale-up,
+.reveal-fade-down {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 0.65s;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+/* ── Initial transform states ── */
+.reveal-fade-up    { transform: translateY(36px); }
+.reveal-fade-down  { transform: translateY(-36px); }
+.reveal-fade-in    { transform: none; }
+.reveal-slide-left { transform: translateX(-40px); }
+.reveal-slide-right{ transform: translateX(40px); }
+.reveal-scale-up   { transform: scale(0.92); }
+
+/* ── Revealed state (class added by IntersectionObserver) ── */
+.reveal-fade-up.revealed,
+.reveal-fade-down.revealed,
+.reveal-fade-in.revealed,
+.reveal-slide-left.revealed,
+.reveal-slide-right.revealed,
+.reveal-scale-up.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Stagger delay utilities ── */
+.delay-0   { --reveal-delay: 0ms; }
+.delay-50  { --reveal-delay: 50ms; }
+.delay-100 { --reveal-delay: 100ms; }
+.delay-150 { --reveal-delay: 150ms; }
+.delay-200 { --reveal-delay: 200ms; }
+.delay-250 { --reveal-delay: 250ms; }
+.delay-300 { --reveal-delay: 300ms; }
+.delay-400 { --reveal-delay: 400ms; }
+.delay-500 { --reveal-delay: 500ms; }
+
+/* ── Micro-animation: Floating ── */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: floatY 3.5s ease-in-out infinite;
+}
+
+/* ── Micro-animation: Pulse glow ── */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* ── Micro-animation: Shimmer loading skeleton ── */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0f4f8 25%,
+    #e2e8f0 50%,
+    #f0f4f8 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ── Micro-animation: Spin ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Slide Down for toast/dropdown ── */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Scale Up for modals ── */
+@keyframes scaleUp {
+  from {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ── Respect reduced motion preference ── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-fade-up,
+  .reveal-fade-down,
+  .reveal-fade-in,
+  .reveal-slide-left,
+  .reveal-slide-right,
+  .reveal-scale-up {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .animate-float,
+  .animate-pulse-glow {
+    animation: none !important;
+  }
+}

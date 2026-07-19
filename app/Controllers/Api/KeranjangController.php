@@ -117,4 +117,46 @@ class KeranjangController extends BaseController
             'message' => 'Item berhasil dihapus dari keranjang',
         ]);
     }
+
+    /**
+     * FR-08 Kelola Keranjang - update kuantitas
+     * PUT /api/keranjang/{id}   (butuh Bearer Token user)
+     * body: { "jumlah": 3 }
+     */
+    public function update($id = null)
+    {
+        $userId = $this->request->userData->id;
+        $data   = $this->input();
+
+        $rules = [
+            'jumlah' => 'required|is_natural_no_zero',
+        ];
+
+        if (! $this->validateInput($rules, $data)) {
+            return $this->failValidationErrors($this->validator->getErrors());
+        }
+
+        $item = $this->keranjangModel->where('id_user', $userId)->find($id);
+        if (! $item) {
+            return $this->failNotFound('Item keranjang tidak ditemukan');
+        }
+
+        $produk = $this->produkModel->find($item['id_produk']);
+        if (! $produk) {
+            return $this->failNotFound('Produk tidak ditemukan');
+        }
+
+        if ($produk['stok'] < $data['jumlah']) {
+            return $this->fail('Stok produk tidak mencukupi', 409);
+        }
+
+        $this->keranjangModel->update($id, [
+            'jumlah' => (int) $data['jumlah'],
+        ]);
+
+        return $this->respond([
+            'status'  => true,
+            'message' => 'Kuantitas berhasil diperbarui',
+        ]);
+    }
 }

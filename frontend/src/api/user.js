@@ -125,3 +125,31 @@ export async function getTransactions() {
   }
   return data;
 }
+
+/**
+ * Update quantity of a cart item
+ * PUT /api/keranjang/:id
+ * body: { jumlah: number }
+ */
+export async function updateCartItem(id, jumlah) {
+  const token = getToken();
+  if (!token) throw new Error('Silakan login terlebih dahulu');
+
+  const res = await fetch(`${BASE_URL}/keranjang/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ jumlah })
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    if (data.messages && typeof data.messages === 'object') {
+      throw new Error(Object.values(data.messages).join(', '));
+    }
+    throw new Error(data.message || 'Gagal memperbarui kuantitas keranjang');
+  }
+  return data;
+}

@@ -33,6 +33,7 @@ $routes->group('api', function ($routes) {
         // Keranjang
         $routes->get('keranjang', '\App\Controllers\Api\KeranjangController::index');
         $routes->post('keranjang', '\App\Controllers\Api\KeranjangController::store');
+        $routes->put('keranjang/(:num)', '\App\Controllers\Api\KeranjangController::update/$1');
         $routes->delete('keranjang/(:num)', '\App\Controllers\Api\KeranjangController::destroy/$1');
 
         // Transaksi / Checkout

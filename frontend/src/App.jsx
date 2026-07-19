@@ -12,6 +12,9 @@ import AdminKategoriPage from './pages/AdminKategori';
 import AdminStokPage from './pages/AdminStok';
 import AdminTransaksiPage from './pages/AdminTransaksi';
 import HomePage from './pages/Home';
+import ProductDetailPage from './pages/ProductDetail';
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 export default function App() {
   return (
@@ -20,11 +23,28 @@ export default function App() {
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<HomePage />} />
+          <Route path="/produk/:id" element={<ProductDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
 
           {/* Protected routes */}
+          <Route
+            path="/keranjang"
+            element={
+              <ProtectedRoute>
+                <CartPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckoutPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/dashboard"
             element={
