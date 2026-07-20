@@ -1,0 +1,307 @@
+{
+  "info": {
+    "name": "TokoSaku API",
+    "description": "Koleksi Postman untuk testing REST API TokoSaku (CodeIgniter 4)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080/api" },
+    { "key": "token", "value": "" },
+    { "key": "admin_token", "value": "" },
+    { "key": "id_produk", "value": "1" },
+    { "key": "id_kategori", "value": "1" },
+    { "key": "id_keranjang", "value": "1" },
+    { "key": "id_transaksi", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Budi123\",\n  \"email\": \"budi@example.com\",\n  \"password\": \"password123\",\n  \"konfirmasi_password\": \"password123\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var json = pm.response.json();",
+                  "if (json.token) { pm.collectionVariables.set('token', json.token); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"budi@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var json = pm.response.json();",
+                  "if (json.token) { pm.collectionVariables.set('admin_token', json.token); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@gmail.com\",\n  \"password\": \"adminpassword123\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/auth/admin-login", "host": ["{{base_url}}"], "path": ["auth", "admin-login"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Publik - Produk & Kategori",
+      "item": [
+        {
+          "name": "List Kategori",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/kategori", "host": ["{{base_url}}"], "path": ["kategori"] } }
+        },
+        {
+          "name": "List Produk",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/produk", "host": ["{{base_url}}"], "path": ["produk"] } }
+        },
+        {
+          "name": "Cari & Filter Produk",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/produk?search=beras&kategori={{id_kategori}}",
+              "host": ["{{base_url}}"],
+              "path": ["produk"],
+              "query": [
+                { "key": "search", "value": "beras" },
+                { "key": "kategori", "value": "{{id_kategori}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Detail Produk",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/produk/{{id_produk}}", "host": ["{{base_url}}"], "path": ["produk", "{{id_produk}}"] } }
+        }
+      ]
+    },
+    {
+      "name": "User - Keranjang",
+      "item": [
+        {
+          "name": "Lihat Keranjang",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/keranjang", "host": ["{{base_url}}"], "path": ["keranjang"] }
+          }
+        },
+        {
+          "name": "Tambah ke Keranjang",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_produk\": {{id_produk}},\n  \"jumlah\": 2\n}"
+            },
+            "url": { "raw": "{{base_url}}/keranjang", "host": ["{{base_url}}"], "path": ["keranjang"] }
+          }
+        },
+        {
+          "name": "Hapus Item Keranjang",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/keranjang/{{id_keranjang}}", "host": ["{{base_url}}"], "path": ["keranjang", "{{id_keranjang}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User - Transaksi",
+      "item": [
+        {
+          "name": "Checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alamat\": \"Jl. Contoh Raya No. 123, Jakarta Selatan\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/checkout", "host": ["{{base_url}}"], "path": ["checkout"] }
+          }
+        },
+        {
+          "name": "Riwayat Transaksi Saya",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/transaksi", "host": ["{{base_url}}"], "path": ["transaksi"] }
+          }
+        },
+        {
+          "name": "Detail Transaksi Saya",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/transaksi/{{id_transaksi}}", "host": ["{{base_url}}"], "path": ["transaksi", "{{id_transaksi}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Kategori",
+      "item": [
+        {
+          "name": "Tambah Kategori",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"nama_kategori\": \"baju\"\n}" },
+            "url": { "raw": "{{base_url}}/admin/kategori", "host": ["{{base_url}}"], "path": ["admin", "kategori"] }
+          }
+        },
+        {
+          "name": "Update Kategori",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"nama_kategori\": \"baju update\"\n}" },
+            "url": { "raw": "{{base_url}}/admin/kategori/{{id_kategori}}", "host": ["{{base_url}}"], "path": ["admin", "kategori", "{{id_kategori}}"] }
+          }
+        },
+        {
+          "name": "Hapus Kategori",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/admin/kategori/{{id_kategori}}", "host": ["{{base_url}}"], "path": ["admin", "kategori", "{{id_kategori}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Produk",
+      "item": [
+        {
+          "name": "Tambah Produk (dengan foto)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "nama_produk", "value": "sepatu lari", "type": "text" },
+                { "key": "deskripsi", "value": "sepatu dengan carbon flat mempercepat saat lari", "type": "text" },
+                { "key": "harga", "value": "1990000", "type": "text" },
+                { "key": "stok", "value": "50", "type": "text" },
+                { "key": "id_kategori", "value": "{{id_kategori}}", "type": "text" },
+                { "key": "foto", "type": "file", "src": [] }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/admin/produk", "host": ["{{base_url}}"], "path": ["admin", "produk"] }
+          }
+        },
+        {
+          "name": "Update Produk (dengan/tanpa foto)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "harga", "value": "2000000", "type": "text" },
+                { "key": "stok", "value": "45", "type": "text" },
+                { "key": "foto", "type": "file", "src": [] }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/admin/produk/{{id_produk}}", "host": ["{{base_url}}"], "path": ["admin", "produk", "{{id_produk}}"] }
+          }
+        },
+        {
+          "name": "Hapus Produk",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/admin/produk/{{id_produk}}", "host": ["{{base_url}}"], "path": ["admin", "produk", "{{id_produk}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Users, Transaksi, Dashboard",
+      "item": [
+        {
+          "name": "Lihat Data Pengguna",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/admin/users", "host": ["{{base_url}}"], "path": ["admin", "users"] }
+          }
+        },
+        {
+          "name": "Lihat Semua Transaksi",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/admin/transaksi", "host": ["{{base_url}}"], "path": ["admin", "transaksi"] }
+          }
+        },
+        {
+          "name": "Detail Transaksi (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/admin/transaksi/{{id_transaksi}}", "host": ["{{base_url}}"], "path": ["admin", "transaksi", "{{id_transaksi}}"] }
+          }
+        },
+        {
+          "name": "Dashboard Admin",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/admin/dashboard", "host": ["{{base_url}}"], "path": ["admin", "dashboard"] }
+          }
+        }
+      ]
+    }
+  ]
+}
